@@ -1,0 +1,37 @@
+open duck.png
+brightness 0.2
+save png brightnessduck
+histogram histobrightnessduck
+drop 0
+
+open duck.png
+contrast 1.25
+save png contrastduck
+histogram histocontrastduck
+drop 0
+
+open duck.png
+gamma 1.75
+save png gammaduck
+histogram histogammaduck
+drop 0
+
+open duck.png
+nonlincontrast 0.5
+save png nonlincontrastduck
+histogram histononlinearduck
+
+open duck.png
+logscale 8
+save png logscaleduck
+histogram histologduck
+
+open duck.png
+quantize 5
+save png quantizeduck
+histogram histoquantizeduck
+
+open duck.png
+equlize
+save png equalizedduck
+histogram histoequalizedduck

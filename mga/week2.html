@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Fotografie a retuše</title>
+    <meta name="author" content="Vojtěch Tomas">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+
+<body>
+    <header>
+        <ol>
+            <li><a href="./index.html">mga 2020/2021</a></li>
+            <li>editace obrazu</li>
+        </ol>
+    </header>
+    <section>
+        <h1>Editace obrazu</h1>
+        <p>V předchozí části jsme se věnovali nedestruktivnímu editování za použití masek a vrstev. Tento týden je věnován editaci obrazu na úrovni jasových hodnot jednotlivých pixelů v rastru.</p>
+
+        <h2>Histogram a monadické operace</h2>
+        <p>Jednoduše, histogram zaznamenává počet pixelů o dané jasové hodnotě v obraze. Znalost jejich distribuce může pomoci nalézt vhodné paramtery pro další editaci. Hodí se tedy vědět, jak jednotlivé operace ovlivňují podobu histogramu.</p>    
+        
+        <div class="grid">
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/duck.png">
+                    <img src="./monadic/histoduck.png">
+                </div>
+                <div class="title">original</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/negateduck.png">
+                    <img src="./monadic/histonegateduck.png">
+                </div>
+                <div class="title">negace</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/threshduck.png" >
+                    <img src="./monadic/histothreshduck.png" >
+                </div>
+                <div class="title">prahování 0.5</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/brightnessduck.png" >
+                    <img src="./monadic/histobrightnessduck.png" >
+                </div>
+                <div class="title">jas 0.2</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/contrastduck.png" >
+                    <img src="./monadic/histocontrastduck.png" >
+                </div>
+                <div class="title">kontrast 1.25</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/gammaduck.png" >
+                    <img src="./monadic/histogammaduck.png" >
+                </div>
+                <div class="title">gamma 1.75</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/nonlincontrastduck.png" >
+                    <img src="./monadic/histononlinearduck.png" >
+                </div>
+                <div class="title">nelineární kontrast 0.5</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/logscaleduck.png" >
+                    <img src="./monadic/histologduck.png" >
+                </div>
+                <div class="title">logaritmizace 8</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/quantizeduck.png" >
+                    <img src="./monadic/histoquantizeduck.png" >
+                </div>
+                <div class="title">kvantizace 5</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./monadic/equalizedduck.png" >
+                    <img src="./monadic/histoequalizedduck.png" >
+                </div>
+                <div class="title">ekvalizace</div>
+            </div>
+        </div>
+
+        <p>Pár poznámek:</p>
+        <ul>
+            <li>z telefonů atp. se pod úpravou kontrastu typicky skrývá nelineární varianta této operace</li>
+            <li>nástroje pro úpravy barevného podání se nachází v menu <span class="menu">Color > *</span> (přebarvení <span class="menu">Colors > Map > Rotate Colors</span>)
+        </li>
+            <li>pár odkazů na dokumentaci - 
+         <a href="https://docs.gimp.org/2.10/en/gimp-tool-brightness-contrast.html">jas a
+                        kontrast</a>, použít <a
+                        href="https://docs.gimp.org/2.10/en/gimp-tool-threshold.html">thresholding</a>, <a
+                        href="https://docs.gimp.org/2.10/en/gimp-tool-curves.html">curves</a> (jedná se o
+                alternativu "obyčené" gamma korekce) a <a
+                        href="https://docs.gimp.org/2.10/en/gimp-tool-levels.html">levels</a> (slouží mimo jiné k
+                vyvážení stínů a jasnějších částí)</li>
+                <li>při skládání více obrazů dohromady je často užitečné použít techniku <a href="http://www.silent9.com/blog/archives/162-Gimp-Script-Histogram-Match.html">histogram matching</a>, kdy se jedná v podstatě o zobecněnou metodu ekvalizace histogramu</li>
+        </ul>
+
+        <h2>Filtrace</h2>
+        <p>Filtry se nachází v menu <span class="menu">Filtry</span>, jsou rozděleny podle funkcionalit do podtříd. Mezi
+            základní filtry je možné zařadit:</p>
+        <ul>
+            <li>rozostření (<span class="menu">Filters > Blur > *</span>)</li>
+            <li>doostření (<span class="menu">Filters > Enhance > Sharpen</span>)</li>
+            <li>detekce hran</li>
+            <li>eliminace defektů v obraze (např. nejjednodušeji vyhlazením...)</li>
+        </ul>
+        <p>Pod pojmem filtr se toho skrývá hodně, lze rozlišovat lineární a nelineární filtry, pro orientaci v nabídce GIMPu je lepší ale chápat pojem filtr, jako něco, co mění obraz určitým očekáváným způsobem, nebo např. přidává nějaký nový element (např. šum).</p>
+        <p>Alternativně existuje řada pluginů, které přidávají další filtry.</p>
+        
+        <p>Jak bylo uvedeno, filtrovat se obecně dá více způsoby, dost často se jedná o lineární filtraci obrazu s použitím <a
+                    href="https://en.wikipedia.org/wiki/Convolution">konvoluce</a>, s jejím použitím lze implementovat 4 příklady filtrace uvedené v seznamu výše.</p>
+
+        <p>Prakticky je užitečné, že filtry v GIMPu lze aplikovat také jen na části obrazu:</p>
+        <ol>
+            <li>vybrat část obrazu jakýmkoliv nástrojem pro výběr</li>
+            <li>aplikovat filtr z menu</li>
+        </ol>
+        
+        <h2>Prostorové transformace</h2>
+
+        <p>Pod pojmem transformace se neskrývá nic nečekaného, jedná se transformaci obrazu v prostoru, např:</p>
+        <ul>
+            <li>otočení (rotation)</li>
+            <li>změna velikosti (scale) (krom jiných metod např. <a
+                    href="http://www.faculty.idc.ac.il/arik/SCWeb/imret/imret.pdf">Liquid rescale</a> (<a
+                    href="https://www.youtube.com/watch?v=6NcIJXTlugc">youtube</a>)</li>
+            <li>zkosení (shear)</li>
+            <li>posun (translation)</li>
+        </ul>
+        <p>Při spojení si informací z kurzu BI-LIN (<a href="https://cs.wikipedia.org/wiki/Grafické_transformace">lehké
+                připomenutí z wiki</a>), není na škodu si uvědomit, že se jedná o lineární, potažmo afinní transformace
+            a je možné je nějak maticově reprezentovat (hlouběji v BI-PGR).</p>
+
+        <p>Prakticky je velice užitečná perspektivní transformace - <span class="menu">Tools > Transform Tools > Perspective</span>. V GIMPu se nachází nástroj umožňující 4 bodovou transformaci obrazu, pravděpodobně nejpřímočařeji se tento nástroj dá použít pro</p>
+        <ul>
+            <li>extrakci kusu obrazu ze zdrojového snímku (budeme chtít extrahovat ze zdrojových obrázků textury)</li>
+            <li>trasformaci výřezu do cílového obrazu, tak aby odpovídal cílové perspektivě (např. umístění nápisu na zeď)</li>
+        </ul>
+
+        <h2>Manuální sešívání snímků</h2>
+        <p>Při sešívání se pro korekci nekonzistentních švů hodí funkcionality jako <a
+            href="https://docs.gimp.org/2.10/en/gimp-tool-clone.html">klonování</a> (a <a
+            href="https://docs.gimp.org/2.10/en/gimp-tool-perspective-clone.html">perspektivní klonování</a>). Bohužel je nutné se potýkat také s jinými nedostatky:</p>
+        <ul>
+            <li>nedostatky jsou velmi často v <strong>odrazech</strong> - některé techniky k odhalování retuší se soustředí právě na hledání těchto nedostatků</li>
+            <li>problematické je také postupné navyšování rozlišení (ve 4K se nedostatky hledají lépe)</li>
+        </ul>
+        <p>Pro manuální korekci je vhodné využít kombinaci několika metod, níže je pár nápadů:</p>
+        <ul>
+            <li>velmi hrubě - vezmu pipetu, naberu barvu z okolí, pak štětcem místo odrazu překreslím</li>
+            <li>lepší - vezmu razítko z okolí - naberu vzorek <span class="menu">ctrl + mouse click</span> a pak ho aplikuji na vybrané místo, hodí se klonovat do nové vrstvy</li>
+            <li>zkusím rozmazání, mám na výběr z více metod rozmazání (klasický, gaussian...)</li>
+            <li>zkusím defekt zamaskovat pomocí airbrushe (naberu barvu pomocí pipety, aplikuju lokálně)</li>
+        </ul>
+        
+        <hr>
+        <h2>Něco navíc</h2>
+        <p>Níže uvedené metody jsou pouze pro inspiraci, jsou zde uvedeny pouze pro zajímavost a jsou nad rámec kurzu pro který jsou tyto materiály zamýšleny. Pro zájemce, kteří by chtěli problematice více rozumět a případně si uvedené metody naimplementovat, lze doporučit BI-PGA a zejména MI-DZO.</p>
+
+        <h3>Konvoluce a Bilaterální filtr</h3>
+        <p>$$(f * g)(s, t) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \cdot g(s−x,t−y) dxdy$$ nebo také diskrétně $$(f * g)(s, t) = \sum_{x}\sum_{y} f[x, y] \cdot g[s − x, t − y]$$ jsou předpisy pro konvoluci. K čemu? Za $f$ je možné dosadit upravovaný snímek jako dvourozměrnou funkci, za $g$ libovolné konvoluční jádro a jednoduše lze obrázek filtrovat řadou způsobů prostou výměnou jádra za jiné. Pokud za $g$ dosadíme např gaussian, jednoduše lze na snímek aplikovat rozmazání:</p>
+
+        <div class="grid">
+            <div class="grid-row">
+                <div class="grid-images small">
+                    <img src="./gaussian/duck.png" alt="">
+                    <img src="./gaussian/duck10.png" alt="">
+                    <img src="./gaussian/duck20.png" alt="">
+                    <img src="./gaussian/duck30.png" alt="">
+                    <img src="./gaussian/duck40.png" alt="">
+                </div>
+                <div class="title">aplikace gaussianu s rozptylem 10, 20, 30 a 40px</div>
+            </div>
+        </div>
+
+        <p>Pokud pracujeme se zašuměnými snímky, hodí se lehké rozmazání pro odšumění. Problémem ovšem je, že touto operací ze snímku odstraňujem detaily a ostré hrany. Z toho důvodu se hodí použít <a href="https://en.wikipedia.org/wiki/Bilateral_filter">Bilaterální filtr</a>, jehož předpis může nápaditě připomínat konvoluci výše $$f_{filtered}(s, t) = \frac{1}{W_p}\sum_{x}\sum_{y} f[x, y] \cdot g[s - x, t - y] \cdot h[\left|f[x, y] - f[s, t]\right|],$$ kde $$W_p = \sum_{x}\sum_{y} g[s - x, t - y] \cdot h[\left|f[x, y] - f[s, t]\right|].$$ 
+            
+        Objevil se člen $h$, který reprezentuje jednodimenzioální gaussian a váží originální konvoluční jádro $g$. K čemu to? Prakticky jsme pomocí tohoto vylepšeného filtru schopni zachovat ostré přechody a zároveň se zbavit šumu.</p>
+
+        <div class="grid">
+            <div class="grid-row">
+                <div class="grid-images">
+                    <img src="./gaussian/facet.png" alt="">
+                    <img src="./gaussian/f4.png" alt="">
+                    <img src="./gaussian/archi.png" alt="">
+                    <img src="./gaussian/archi10_60.png" alt="">
+                </div>
+                <div class="title">vlevo originál, vpravo snímek s potlačeným šumem</div>
+            </div>
+        </div>
+
+        <p>Nevýhodou tohoto vylepšeného filtru je nemožnost urychlit výpočet, aniž bychom se uchýlili k aproximacím namísto exaktního výpočtu.</p>
+
+        <h3>Editace v gradientní oblasti</h3>
+        <p>Existují automatické metody pro bezešvé sešívání obrazu založené na <a href="https://en.wikipedia.org/wiki/Gradient-domain_image_processing">editaci v gradientní oblasti</a>.</p>
+        <div class="grid">
+            <div class="grid-row">
+                <div class="grid-images">
+                <img src="./edit/bonsai_combined.jpeg" alt="">
+                <img src="./edit/bonsai_border_left.png" alt="">
+                </div>
+                <div class="title">vlevo original, vpravo po editaci</div>
+            </div>
+            <div class="grid-row">
+                <div class="grid-images">
+                <img src="./edit/desk_left.jpeg" alt="">
+                <img src="./edit/desk_right.jpeg" alt="">
+                <img src="./edit/desk.png" alt="">
+                </div>
+                <div class="title">první a druhý snímek byly sloučeny do třetího, šev je sice stále znatelný, je zde ale demonstrována schopnost automatické kompenzace různých expozic vstupních obrazů</div>
+            </div>
+        </div>
+
+        <h3>Jiné metody</h3>
+        <p>Na tomto místě se hodí zmínit také filtraci ve frekvenční oblasti a n-bodovou transformaci.</p>
+
+    </section>
+    <footer>
+        <p><a href="./index.html">&lt; back</a></p>
+    </footer>
+</body>
+
+</html>

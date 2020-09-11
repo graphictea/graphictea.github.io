@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Fotografie a retuše</title>
+    <meta name="author" content="Vojtěch Tomas">
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header>
+        <ol>
+            <li><a href="./index.html">mga 2020/2021</a></li>
+            <li>vrstvy, masky</li>
+        </ol>
+    </header>
+    <section>
+    <h1>Vrstvy a masky</h1>
+    Pokud jste se dosud nesetkali s žádným grafickým editorem, tak je třeba se seznámit s konceptem vrstev a masek. Na co se podívat:
+    <ul>
+        <li><a href="https://docs.gimp.org/en/gimp-concepts-layer-modes.html">Layer modes in GIMP docs</a></li>
+        <li><a href="https://www.gimp.org/tutorials/Layer_Masks/">layer mask tutorial by Pat David</a></li>
+    </ul>
+    <h2>Vrstvy</h2>
+    <p>Často bude cílem složit více samostatných obrázků dohromady. Za tímto účelem řada editorů pracuje s vrstvami, které jsou následně v kombinaci s maskami a poloprůhledností složeny dohromady. Operaci která bude aplikována při skládání snímků je možné zvolit.</p>
+    <img src="./mask/layer.svg" alt="" class="banner">
+    <ul>
+        <li>každá vrstva může mít <strong>masku</strong> či <strong>alfa kanál</strong>, které rozhodují o poloprůhlednosti</li>
+        <li>vrstvy lze skládat odpředu dozadu, či naopak, postupy se liší provedením operací</li>
+    </ul>
+    <h2>Základní nástroje pro výběr</h2>
+    <p></p>
+    <p>Základním úkolem je často izolovat objekt ze scény, aby ho bylo možné vložit do scény jiné. Jednoduchý postup pro vyjmutí objektu ze scény:</p>
+    <ol>
+        <li>použít vybraný nástroj pro výběr
+            <ul>
+                <li><strong>laso</strong> - vybranou oblastí je polygon</li>
+                <li><strong>magická hůlka</strong> - vybírá oblast dle barvy/jasu, je možné kombinovat, dobé pro kontrastní oblasti</li>
+                <li><strong>nůžky</strong> - umožňuje přichytávání</li>
+            </ul>
+        </li>
+        <li><span class="menu">Select > Toggle quick mask</span> pro přechod do módu umužňující rychlou úpravu masky</li>
+        <li>dodatečné úpravy vybrané oblasti pomocí štětce nebo tužky</li>
+        <li>copy-paste do nové vrstvy</li>
+    </ol>
+    <h2>Výběr pomocí masky</h2>
+    <p>Copy-paste postupem dojde ke ztrátě jakékoliv původní informace a výřez je možné pouze zmenšovat, není možné se vrátit zpět. Tomu je možné předejí pomocí masky:</p>
+    <ol>
+        <li>vezmu fotografii ze které budu vyřezávat <a href="https://www.pexels.com/photo/paper-boats-on-solid-surface-194094/">src</a>
+            <div>
+                <img src="./mask/sc1.png" alt="gui">
+            </div></li>
+        <li>vyberu si nástroj pro výběr</li>
+        <div>
+                <img src="./mask/sc2.png" alt="nástroje pro výběr">
+            </div>
+        <li>nahrubo vyberu objekt
+                <div>
+                        <img src="./mask/sc3.png" alt="výběr">
+                    </div>
+        </li>
+        <li>v menu <span class="menu">Select</span> zvolím <span class="menu">Toggle Quick Mask</span>
+                <div>
+                        <img src="./mask/sc4.png" alt="toggle quick mask">
+                    </div>
+        </li>
+        <li>po přepnutí
+                <div>
+                        <img src="./mask/sc5.png" alt="quick mask">
+                    </div>
+        </li>
+        <li>v režimu úpravy masky vezmu vhodný štětec/tužku/gumu...
+                <div>
+                        <img src="./mask/sc6.png" alt="drawing tools">
+                    </div>
+        </li>
+        <li>...a s vhodným nastavením poloměru, tvrdosti atd. opravím špatně vybrné části
+                <div>
+                        <img src="./mask/sc7.png" alt="drawing tools">
+                    </div>
+        </li>
+        <li>když jsem s úpravou spokojený, přepnu se zpět z režimu Quick Mask
+                <div>
+                        <img src="./mask/sc8.png" alt="toggle quick mask again">
+                    </div>
+        </li>
+        <li>v pravém dolním rohu vyberu ikonu masky
+                <div>
+                        <img src="./mask/sc9.png" alt="create mask">
+                    </div>
+        </li>
+        <li>vyskočí dialog, zvolím možnost Selection a potvrdím Add
+                <div>
+                        <img src="./mask/sc10.png" alt="create mask">
+                    </div>
+        </li>
+        <li>a dostanu izolovaný objekt
+                <div>
+                        <img src="./mask/sc11.png" alt="final image">
+                    </div>
+        </li>
+    </ol>
+    </section>
+    <footer>
+        <p><a href="./index.html">&lt; back</a></p>
+    </footer>
+</body>
+
+</html>

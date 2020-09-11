@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+html, body {
+    font-family: 'Courier Prime', monospace;
+    margin: 0;
+    width: 100%;
+    line-height: 1.5em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+section, header, footer {
+    margin: 1em auto;
+    max-width: 40em;
+}
+
+@media(max-width: 40em) {
+    html, body {
+        margin: 0.5em;
+        width: calc(100% - 1em);
+    }
+}
+
+h1, h2, h3 {
+    font-weight: 400;
+    margin: 2em 0 0.5em;
+}
+
+header ol {
+    font-size: 0.9em;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header ol li {
+    display: inline;
+}
+
+header ol li + li::before {
+    content: ">";
+    padding: 0 0.5em;
+}
+
+header {
+    margin: 2em auto 1em;
+    padding: 0;
+}
+
+footer {
+    margin: 2em auto 4em;
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+dl.tree {
+    margin: 0;
+    padding: 2px 2px;
+    position: relative;
+}
+
+dl.tree::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+    border-left: 2px solid #CCC;
+    height: calc(100% - 1em);
+}
+
+section > dl.tree {
+    overflow: auto;
+}
+
+dl.tree > dt > dl.tree {
+    padding-top: 1em;
+    margin-bottom: 1em;
+}
+
+dl.tree dt,
+dl.tree dd {
+    padding-left: 1em;
+    position: relative;
+}
+
+dl.tree dt::before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: -2px;
+    top: 0.6em;
+    width: 0.6em;
+    border: 2px solid #CCC;
+    border-top: 0 none transparent;
+    border-right: 0 none transparent;
+}
+
+dl.tree dd{
+    margin: 0;
+    color: #888;
+    font-size: 0.9em;
+}
+
+li div img {
+    max-width: 100%;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 2em 0;
+    justify-content: space-between;
+}
+
+.grid .grid-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid .grid-row .grid-images {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.grid img {
+    max-height: 150px;
+    max-width:  150px;
+    margin-right: 1em;
+    align-self: baseline;
+}
+
+.grid img:last-child {
+    margin-right: 0;
+}
+
+.grid .small img {
+    max-height: 100px;
+    max-width:  100px;
+}
+
+.grid .title {
+    color: #888;
+    font-size: 0.9em;
+    margin: 0.5em 0 1em;
+}
+
+.grid .grid-row3 img {
+    max-width: 33%;
+    max-height: 200px;
+}
+
+span.menu {
+    background-color: #DDD;
+    padding: 0.1em 0.5em;
+    white-space: nowrap;
+    border-radius: 0.2em;
+}
+
+.quote {
+    font-size: 0.8em;
+    color: #888;
+}
