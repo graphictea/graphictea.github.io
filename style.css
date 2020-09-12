@@ -145,7 +145,7 @@ li div img {
 .grid .title {
     color: #888;
     font-size: 0.9em;
-    margin: 0.5em 0 1em;
+    margin: 1em 0;
 }
 
 .grid .grid-row3 img {
@@ -163,4 +163,39 @@ span.menu {
 .quote {
     font-size: 0.8em;
     color: #888;
+}
+
+.video-box {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.video {
+    padding-top:56.25%;
+    position:relative;
+}
+
+.video.wide {
+    padding-top:42.25%;
+}
+
+.video iframe{
+    position:absolute;top:0;left:0;width:100%;height:100%;
+}
+
+img.banner {
+    display: block;
+    padding: 0;
+    margin: 2em 0;
+    width: 100%;
+}
+
+.insignificant {
+    font-size: 0.9em;
+    color: #888;
+}
+
+hr {
+    border: solid 1px #EEE;
+    margin: 4em 0;
 }
