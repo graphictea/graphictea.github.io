@@ -120,32 +120,37 @@ li div img {
     flex-direction: column;
 }
 
-.grid .grid-row .grid-images {
+.grid .grid-images {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: left;
 }
 
-.grid img {
-    max-height: 150px;
-    max-width:  150px;
-    margin-right: 1em;
+.grid .grid-image {
     align-self: baseline;
+    margin-right: 1em;
 }
 
-.grid img:last-child {
+.grid .grid-image:last-child {
     margin-right: 0;
 }
 
-.grid .small img {
-    max-height: 100px;
-    max-width:  100px;
+.grid img {
+    display: block;
+    max-width: 100%;
+    max-height: 120px;
 }
 
-.grid .title {
+.grid .title,
+img + .title {
     color: #888;
     font-size: 0.9em;
     margin: 1em 0;
+}
+
+img + .title {
+    text-align: center;
 }
 
 .grid .grid-row3 img {
@@ -161,7 +166,13 @@ span.menu {
 }
 
 .quote {
-    font-size: 0.8em;
+    font-size: 0.9em;
+    font-style: italic;
+}
+
+.quote-source {
+    font-size: 0.9em;
+    text-align: right;
     color: #888;
 }
 
@@ -190,6 +201,21 @@ img.banner {
     width: 100%;
 }
 
+img.banner.smaller {
+    margin: 2em auto;
+    max-width: 30em;
+}
+
+img.banner.smallest {
+    margin: 2em auto;
+    max-width: 20em;
+}
+
+img.banner.natural {
+    margin: 2em auto;
+    width: auto;
+}
+
 .insignificant {
     font-size: 0.9em;
     color: #888;
@@ -198,4 +224,41 @@ img.banner {
 hr {
     border: solid 1px #EEE;
     margin: 4em 0;
+}
+
+span.it {
+    font-style: italic;
+}
+
+div.algo {
+    font-size: 1em;
+    background: #EEE;
+    padding: 1em;
+    line-height: 1.5em;
+    box-sizing: border-box;
+    counter-reset: line;
+    white-space: normal;
+    overflow: scroll;
+}
+
+div.algo > span {
+    display: block;
+    white-space: pre;
+}
+
+div.algo > span:before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    border-right: 1px solid #ddd;
+    padding: 0 .5em;
+    margin-right: 1em;
+    width: 1.5em;
+    text-align: right;
+    color: #888
+}
+
+span.mjx-chtml {
+    overflow-x: auto;
+    overflow-y: hidden;
 }
