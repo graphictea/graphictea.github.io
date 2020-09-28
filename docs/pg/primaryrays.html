@@ -70,12 +70,8 @@
 <p>Modelovou matici $\mathbf{M}$ můžeme zanedbat, jelikož budeme pracovat ve světovém souřadném systému. Původní řetězec transformaci \begin{equation} \mathbf{p}_t = \mathbf{V} \mathbf{P} \mathbf{C} \mathbf{p} \end{equation} je nutno invertovat. Pozici kamery $\mathbf{o}$ ve světových souřadnicích je možné získat jako \begin{equation} \mathbf{o} = \mathbf{C}^{-1} \left[0, 0, 0, 1\right]^T \end{equation} a souřadnici pixelu $\mathbf{s}_{xy}$ ve světových souřadnicích kde $x$ a $y$ jsou indexy daného pixelu \begin{equation} \mathbf{s}_{xy} = \mathbf{C}^{-1} \mathbf{P}^{-1} \mathbf{V}^{-1}\left[x, y, 0, 1\right]^T. \end{equation} Směrový vektor je nakonec možné jednoduše spočítat \begin{align} \mathbf{p}_{xy} &amp;= \mathbf{s}_{xy} - \mathbf{o},\\ \mathbf{r}_{xy} &amp;= \frac{\mathbf{p}_{xy}}{|\mathbf{p}_{xy}|}. \end{align} Je možné postupovat libovolným způsobem, výsledkem je mechanismus, který umožní generovat primární paprsky dané dvěma vektory - pozicí kamery $\mathbf{o}$ a normalizovaným směrem paprsku $\mathbf{r}_{xy}$</p>
 </section>
 <footer>
-    <header>
-    <ol>
-       <li><a href="../">coursebook</a></li>
-       <li>poznámky k pg</li>
-    </ol>
-</header>
+    <hr>
+    <p><a href="https://github.com/graphictea/graphictea.github.io">hosted on GitHub</a> - Poznámky k počítačové grafice</p>
 </footer>
 </body>
 </html>
