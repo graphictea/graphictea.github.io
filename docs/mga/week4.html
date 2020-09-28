@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Poznámky k počítačové grafice</title>
+    <meta name="author" content="Vojtěch Tomas">
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js/img.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>mga</li>
+    </ol>
+</header>
+    <section id="main">
+
+<h1>Metody vektorizace</h1>
+<p>Jako open-source varianta se bude používat program <a href="https://inkscape.org">Inkscape</a>, na Windows i Linux je instalace bez problému, na Mac budete potřebovat XQuartz (viz download stránka na <a href="https://inkscape.org"></a>inkscape.org), očekávejte potíže, XQuartz kupříkladu potřebuje alespoň log-out + log-in po instalaci, a po spuštění trvá věky, než se otevře nějaké okno.</p>
+<p>Jako komerční alternativa se nabízí Illustrator od Adobe.</p>
+<h3>Nápady</h3>
+<ul>
+<li>ilustrace</li>
+<li>blueprint</li>
+<li>omalovánky</li>
+<li>konstrukční návod ala IKEA</li>
+<li>informační schéma/poster</li>
+<li>políčko komixu</li>
+</ul>
+<h2>Jak vektorizovat</h2>
+<p>Cílem vektorizace je převést rastrový obraz na vektorový výstup ala ilustrace, blueprint.</p>
+<p><strong>Vektorizace obtahem</strong> je tak trochu analogie klasického obkreslování přes pauzák, kdy se obtahují hlavní kontury objektu.</p>
+<p><strong>Vektorizace překryvem</strong> je dost podobná, ale místo obrysů používám základní tvary, které lze spojovat dohromady.</p>
+<p><strong>Automatická vektorizace</strong> využívá vestavěných nástrojů pro automatickou vektorizaci, úkolem uživatele je vhodně zvolit parametry.</p>
+<h2>Ukázka</h2>
+<p>Ukázka vektorizace obtahem, překryvem a automatické vektorizace.</p>
+<p><img alt="zdrojové foto" src="/img/vector/cica.JPG" /></p>
+<div class="images">
+<img src="/img/vector/obtah.svg" alt="vektorizace obtahem"> 
+<img src="/img/vector/prekryv.svg" alt="vektorizace překryvem"> 
+<img src="/img/vector/auto.svg" alt="automatická vektorizace">
+</div>
+
+<h2>Tipy pro Inkscape</h2>
+<ul>
+<li>velikost obrazové plochy lze změnit v menu <code>File &gt; Documen Properties</code></li>
+<li>panel pro změnu průhlednosti podkladového obrázku <code>Object &gt; Objects</code></li>
+<li>Inkscape ukládá ve výchozím nastavení rovnou do svg formátu</li>
+<li>Ovládání nástroje pro vektorizaci v horním panelu (módy uzlů atp.)</li>
+<li>Automatická vektorizace Path &gt; Trace Bitmap</li>
+</ul>
+</section>
+<footer>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>mga</li>
+    </ol>
+</header>
+</footer>
+</body>
+</html>

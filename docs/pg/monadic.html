@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Poznámky k počítačové grafice</title>
+    <meta name="author" content="Vojtěch Tomas">
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js/img.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>poznámky k pg</li>
+    </ol>
+</header>
+    <section id="main">
+
+<h1>Editace a transfromace obrazu</h1>
+<p>Tato část je věnována editaci obrazu na úrovni jasových hodnot jednotlivých pixelů v rastru.</p>
+<h2>Histogram a monadické operace</h2>
+<p>Jednoduše, histogram zaznamenává počet pixelů o dané jasové hodnotě v obraze. Znalost jejich distribuce může pomoci nalézt vhodné paramtery pro další editaci. Hodí se tedy vědět, jak jednotlivé operace ovlivňují podobu histogramu.</p>
+<p>Původní obraz je zde označen jako $f(x, y)$, obraz po transformaci jako $f'(x, y)$.</p>
+<div class="images">
+    <img src="/img/monadic/duck.png">
+    <img src="/img/monadic/histoduck.png">
+</div>
+
+<p class="title">original
+$$f'(x, y) = f(x, y)$$</p>
+<div class="images">
+    <img src="/img/monadic/negateduck.png">
+    <img src="/img/monadic/histonegateduck.png">
+</div>
+
+<p class="title">negace
+$$f'(x, y) = 1 - f(x, y)$$</p>
+<div class="images">
+    <img src="/img/monadic/threshduck.png">
+    <img src="/img/monadic/histothreshduck.png">
+</div>
+
+<p class="title">prahování
+$$l = 0.5,\, f'(x, y) = \begin{cases}0\text{ iff }f(x, y) \leq l\\1\text{ iff } f(x, y) &gt; l\end{cases}$$</p>
+<div class="images">
+    <img src="/img/monadic/brightnessduck.png">
+    <img src="/img/monadic/histobrightnessduck.png">
+</div>
+
+<p class="title">jas
+$$l = 0.2,\, f'(x, y) = f(x, y) + l$$</p>
+<div class="images">
+    <img src="/img/monadic/contrastduck.png">
+    <img src="/img/monadic/histocontrastduck.png">
+</div>
+
+<p class="title">kontrast
+$$l = 1.25,\, f'(x, y) = f(x, y) \cdot l$$</p>
+<div class="images">
+    <img src="/img/monadic/gammaduck.png">
+    <img src="/img/monadic/histogammaduck.png">
+</div>
+
+<p class="title">gamma
+$$\gamma = 1.75,\, f'(x, y) = f(x, y)^{\gamma}$$</p>
+<div class="images">
+    <img src="/img/monadic/nonlincontrastduck.png">
+    <img src="/img/monadic/histononlinearduck.png">
+</div>
+
+<p class="title">nelineární kontrast
+$$f'(x, y) = \begin{cases}\frac{1}{2}(2f(x, y))^{\gamma}\text{ iff }f(x, y) \leq \frac{1}{2}\\1 - \frac{1}{2}(2 - 2f(x, y))^{\gamma} \text{ iff } f(x, y) &gt; \frac{1}{2} \end{cases}\;\gamma = \frac{1}{1 - l},\;l = 0.5$$</p>
+<div class="images">
+    <img src="/img/monadic/logscaleduck.png">
+    <img src="/img/monadic/histologduck.png">
+</div>
+
+<p class="title">logaritmizace
+$$f'(x, y) = \frac{\log(1 + f(x, y) \cdot l)}{\log(1 + l)},\; l = 8$$</p>
+<div class="images">
+    <img src="/img/monadic/quantizeduck.png">
+    <img src="/img/monadic/histoquantizeduck.png">
+</div>
+
+<p class="title">kvantizace
+$$l = 5,\, f'(x, y) = \lfloor f(x, y) \cdot l\rfloor$$</p>
+<div class="images">
+    <img src="/img/monadic/equalizedduck.png">
+    <img src="/img/monadic/histoequalizedduck.png">
+</div>
+
+<p class="title">ekvalizace
+viz níže</p>
+<h3>Ekvalizace histogramu a histogram matching</h3>
+<p>Ilustrace ekvalizace histogramu - mapování kumulativní distribuční funkce (cdf) příslušející vstupnímu obrazu na lineární cdf a poté zpětnou transformaci jasových hodnot, celou proceduru ilustruje následující obrázek.</p>
+<p><img alt="ekvalizace histogramu" src="/img/monadic/equalization.png" /></p>
+<p>Operace histogram matching je analogická ekvalizaci výše, pouze je lineární kumulativní distribuční funkce (linear cdf) nahrazena cdf příslušející obrazu, jehož rozložení intenzit se snažíme namapovat na originální obraz. V případě barevných obrázků je možné postupovat po složkách nezávisle, viz ukázka níže.</p>
+<div class="images">
+    <img src="/img/monadic/city.jpeg">
+    <img src="/img/monadic/jungle.jpeg">
+    <img src="/img/monadic/city_mapped.jpeg">
+</div>
+
+<p class="title">histogram prvního snímku byl namapován na histogram druhého snímku, třetí snímek je výstup</p>
+<h2>Prostorové transformace</h2>
+<p>Pod pojmem transformace se neskrývá nic nečekaného, jedná se transformaci obrazu v prostoru, např:</p>
+<ul>
+<li>otočení (rotation)</li>
+<li>změna velikosti (scale)</li>
+<li>zkosení (shear)</li>
+<li>posun (translation)</li>
+<li>perspektivní transformace</li>
+</ul>
+<p>Jednotlivé transformační operace lze reprezentovat pomocí matic a lze je roztřídit do několika kategorií dle vlastností, které v obraze zachovávají.</p>
+<p>TODO</p>
+<h3>Liquid scale</h3>
+<p>Má smysl se zabývat i transformacemi, které nespadají do kategorií výše, na ukázku je zde uvedeno video z kurzu <a href="https://computationalthinking.mit.edu/Fall20/">Introduction to Computational Thinking - MIT 18.S191</a> které přibližuje metodu škálování obrazu podobnou <a href="http://www.faculty.idc.ac.il/arik/SCWeb/imret/imret.pdf">Liquid rescale</a> (<a href="https://www.youtube.com/watch?v=6NcIJXTlugc">youtube</a>).</p>
+<div class="video-box">
+    <div class="video">
+        <iframe width="420" height="315" src="https://www.youtube.com/embed/rpB6zQNsbQU">
+        </iframe>
+    </div>
+</div>
+
+<h2>Editace v gradientní oblasti</h2>
+<p>Jako zajímavost lze uvést, že existují automatické metody pro bezešvé sešívání obrazu založené na <a href="https://en.wikipedia.org/wiki/Gradient-domain_image_processing">editaci v gradientní oblasti</a>.</p>
+<div class="images">
+<img src="/img/edit/bonsai_combined.jpeg">
+<img src="/img/edit/bonsai_border_left.png">
+</div>
+
+<p class="title">vlevo original, vpravo po editaci</p>
+<div class="images">
+<img src="/img/edit/desk_left.jpeg">
+<img src="/img/edit/desk_right.jpeg">
+<img src="/img/edit/desk.png">
+</div>
+
+<p class="title">první a druhý snímek byly sloučeny do třetího, šev je sice stále znatelný, je zde ale demonstrována schopnost automatické kompenzace různých expozic vstupních obrazů</p>
+<p>TODO demo</p>
+</section>
+<footer>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>poznámky k pg</li>
+    </ol>
+</header>
+</footer>
+</body>
+</html>

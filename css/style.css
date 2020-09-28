@@ -107,62 +107,47 @@ li div img {
     max-width: 100%;
 }
 
-.grid {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 2em 0;
-    justify-content: space-between;
-}
 
-.grid .grid-row {
+.images {
     display: flex;
-    flex-direction: column;
-}
-
-.grid .grid-images {
-    display: flex;
-    flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: space-around;
+    align-items: baseline;
+    width: 100%;
+    height: 150px;
+    margin: 2em auto 1em;
 }
 
-.grid .grid-image {
-    align-self: baseline;
-    margin-right: 1em;
-}
-
-.grid .grid-image:last-child {
-    margin-right: 0;
-}
-
-.grid img {
+.images > img {
     display: block;
-    max-width: 100%;
-    max-height: 120px;
+    width: 10px;
+    max-height: 100%;
+    flex: 1 1 auto;
+    object-fit: contain;
+    background: #F8F8F8;
+    margin: 0.1em;
+    align-self: flex-end;
 }
 
-.grid .title,
-img + .title {
-    color: #888;
-    font-size: 0.9em;
-    margin: 1em 0;
+img {
+    cursor: pointer;
+    /*border: 1px solid #000;*/
 }
 
-img + .title {
+.title {
     text-align: center;
+    font-size: 0.9em;
+    color: #444;
+    margin-bottom: 2em;
 }
 
-.grid .grid-row3 img {
-    max-width: 33%;
-    max-height: 200px;
-}
-
-span.menu {
+span.menu,
+code {
     background-color: #DDD;
     padding: 0.1em 0.5em;
     white-space: nowrap;
     border-radius: 0.2em;
+    font-family: inherit;
 }
 
 .quote {
@@ -194,6 +179,7 @@ span.menu {
     position:absolute;top:0;left:0;width:100%;height:100%;
 }
 
+p > img,
 img.banner {
     display: block;
     padding: 0;
@@ -201,24 +187,21 @@ img.banner {
     width: 100%;
 }
 
-img.banner.smaller {
+p > img,
+img.smaller {
     margin: 2em auto;
     max-width: 30em;
 }
 
-img.banner.smallest {
+img.smallest {
     margin: 2em auto;
     max-width: 20em;
 }
 
-img.banner.natural {
+img.natural {
     margin: 2em auto;
     width: auto;
-}
-
-.insignificant {
-    font-size: 0.9em;
-    color: #888;
+    max-width: 100%;
 }
 
 hr {
@@ -261,4 +244,31 @@ div.algo > span:before {
 span.mjx-chtml {
     overflow-x: auto;
     overflow-y: hidden;
+}
+
+span.mjx-chtml::-webkit-scrollbar {
+    display: none;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;
+}
+
+
+
+
+.img-frame {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(200, 200, 200, 0.7);
+    backdrop-filter: blur(2px);
+}
+
+.img-frame img {
+    max-width: calc(100% - 1em);
+    max-height: calc(100% - 4em);
+    margin: 1em auto;
+    display: block;
+    background: #FFF;
 }

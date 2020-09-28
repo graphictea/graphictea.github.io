@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Poznámky k počítačové grafice</title>
+    <meta name="author" content="Vojtěch Tomas">
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js/img.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>poznámky k pg</li>
+    </ol>
+</header>
+    <section id="main">
+
+<h1>Filtrace obrazu</h1>
+<p>Pojem filtr je poněkud obecný a může se pod ním skrývat celá řada operací. Mezi filtry lze například zařadit:</p>
+<ul>
+<li>rozostření či doostření</li>
+<li>detekci hran</li>
+<li>eliminace defektů v obraze</li>
+</ul>
+<p>Filtrovat obraz lze obecně více způsoby, dost často se jedná o lineární filtraci obrazu s použitím <a href="https://en.wikipedia.org/wiki/Convolution">konvoluce</a>, s jejím použitím lze implementovat 4 příklady filtrace uvedené v seznamu výše. Jiné typy filtrace mohou zahrnovat např. filtraci ve frkvenční oblasti (viz Fourierova transformace) nebo nelineární filtraci (viz bilatelární filtr níže).</p>
+<h2>Konvoluce</h2>
+<p>$$(f * g)(s, t) = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} f(x, y) \cdot g(s−x,t−y) dxdy$$ nebo také diskrétně $$(f * g)(s, t) = \sum_{x}\sum_{y} f[x, y] \cdot g[s − x, t − y]$$ jsou předpisy pro konvoluci. K čemu? Za $f$ je možné dosadit upravovaný snímek jako dvourozměrnou funkci, za $g$ libovolné konvoluční jádro a jednoduše lze obrázek filtrovat řadou způsobů prostou výměnou jádra za jiné. Pokud za $g$ dosadíme např gaussian, jednoduše lze na snímek aplikovat rozmazání:</p>
+<div class="images">
+    <img src="/img/gaussian/duck.png" alt="">
+    <img src="/img/gaussian/duck10.png" alt="">
+    <img src="/img/gaussian/duck20.png" alt="">
+    <img src="/img/gaussian/duck30.png" alt="">
+    <img src="/img/gaussian/duck40.png" alt="">
+</div>
+
+<p class="title">aplikace gaussianu s rozptylem 10, 20, 30 a 40px</p>
+<p>Pro lepší pochopení konvoluce lze vřele doporučit video vytvořené ke kurzu <a href="https://computationalthinking.mit.edu/Fall20/">Introduction to Computational Thinking - MIT 18.S191</a>.</p>
+<div class="video-box">
+    <div class="video">
+        <iframe width="420" height="315"
+        src="https://www.youtube.com/embed/8rrHTtUzyZA">
+        </iframe>
+    </div>
+</div>
+
+<p>TODO praktické aplikace konvoluce</p>
+<p>TODO metody akcelerace výpočtu kovoluce</p>
+<h2>Bilaterální filtr</h2>
+<p>Pokud pracujeme se zašuměnými snímky, hodí se lehké rozmazání pro odšumění. Problémem ovšem je, že touto operací ze snímku odstraňujem detaily a ostré hrany. Z toho důvodu se hodí použít <a href="https://en.wikipedia.org/wiki/Bilateral_filter">Bilaterální filtr</a>, jehož předpis může nápaditě připomínat konvoluci výše $$f_{filtered}(s, t) = \frac{1}{W_p}\sum_{x}\sum_{y} f[x, y] \cdot g[s - x, t - y] \cdot h[\left|f[x, y] - f[s, t]\right|],$$ kde $$W_p = \sum_{x}\sum_{y} g[s - x, t - y] \cdot h[\left|f[x, y] - f[s, t]\right|].$$ Objevil se člen $h$, který reprezentuje jednodimenzioální gaussian a váží originální konvoluční jádro $g$. K čemu to? Prakticky jsme pomocí tohoto vylepšeného filtru schopni zachovat ostré přechody a zároveň se zbavit šumu.</p>
+<div class="images">
+    <img src="/img/gaussian/facet.png" alt="">
+    <img src="/img/gaussian/f4.png" alt="">
+    <img src="/img/gaussian/archi.png" alt="">
+    <img src="/img/gaussian/archi10_60.png" alt="">
+</div>
+
+<p class="title">vlevo originál, vpravo snímek s potlačeným šumem</p>
+</section>
+<footer>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>poznámky k pg</li>
+    </ol>
+</header>
+</footer>
+</body>
+</html>

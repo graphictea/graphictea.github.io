@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Poznámky k počítačové grafice</title>
+    <meta name="author" content="Vojtěch Tomas">
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js/img.js"></script>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>mga</li>
+    </ol>
+</header>
+    <section id="main">
+
+<h1>Vrstvy a masky</h1>
+<p>Pokud jste se dosud nesetkali s žádným grafickým editorem, tak je třeba se seznámit s konceptem vrstev a masek. Na co se podívat:</p>
+<ul>
+<li><a href="https://docs.gimp.org/en/gimp-concepts-layer-modes.html">Layer modes in GIMP docs</a></li>
+<li><a href="https://www.gimp.org/tutorials/Layer_Masks/">layer mask tutorial by Pat David</a></li>
+</ul>
+<h2>Vrstvy</h2>
+<p>Často bude cílem složit více samostatných obrázků dohromady. Za tímto účelem řada editorů pracuje s vrstvami, které jsou následně v kombinaci s maskami a poloprůhledností složeny dohromady. Operaci která bude aplikována při skládání snímků je možné zvolit.</p>
+<p><img alt="" src="/img/mask/layer.svg" /></p>
+<ul>
+<li>každá vrstva může mít <strong>masku</strong> či <strong>alfa kanál</strong>, které rozhodují o poloprůhlednosti</li>
+<li>vrstvy lze skládat odpředu dozadu, či naopak, postupy se liší provedením operací</li>
+</ul>
+<h2>Základní nástroje pro výběr</h2>
+<p>Základním úkolem je často izolovat objekt ze scény, aby ho bylo možné vložit do scény jiné. Jednoduchý postup pro vyjmutí objektu ze scény:</p>
+<ol>
+<li>použít vybraný nástroj pro výběr<ul>
+<li><strong>laso</strong> - vybranou oblastí je polygon</li>
+<li><strong>magická hůlka</strong> - vybírá oblast dle barvy/jasu, je možné kombinovat, dobé pro kontrastní oblasti</li>
+<li><strong>nůžky</strong> - umožňuje přichytávání</li>
+</ul>
+</li>
+<li>Select &gt; Toggle quick mask pro přechod do módu umužňující rychlou úpravu masky</li>
+<li>dodatečné úpravy vybrané oblasti pomocí štětce nebo tužky</li>
+<li>copy-paste do nové vrstvy</li>
+</ol>
+<h2>Výběr pomocí masky</h2>
+<p>Copy-paste postupem dojde ke ztrátě jakékoliv původní informace a výřez je možné pouze zmenšovat, není možné se vrátit zpět. Tomu je možné předejí pomocí masky:</p>
+<ol>
+<li>
+<p>vezmu fotografii ze které budu vyřezávat <a href="https://www.pexels.com/photo/paper-boats-on-solid-surface-194094/">src</a></p>
+<p><img alt="gui" class="natural" src="/img/mask/sc1.png" /></p>
+</li>
+<li>
+<p>vyberu si nástroj pro výběr</p>
+<p><img alt="nástroje pro výběr" class="natural" src="/img/mask/sc2.png" /></p>
+</li>
+<li>
+<p>nahrubo vyberu objekt</p>
+<p><img alt="výběr" class="natural" src="/img/mask/sc3.png" /></p>
+</li>
+<li>
+<p>v menu <code>Select</code> zvolím <code>Toggle Quick Mask</code></p>
+<p><img alt="toggle quick mask" class="natural" src="/img/mask/sc4.png" /></p>
+</li>
+<li>
+<p>po přepnutí</p>
+<p><img alt="quick mask" class="natural" src="/img/mask/sc5.png" /></p>
+</li>
+<li>
+<p>v režimu úpravy masky vezmu vhodný štětec/tužku/gumu...</p>
+<p><img alt="drawing tools" class="natural" src="/img/mask/sc6.png" /></p>
+</li>
+<li>
+<p>...a s vhodným nastavením poloměru, tvrdosti atd. opravím špatně vybrné části</p>
+<p><img alt="drawing tools" class="natural" src="/img/mask/sc7.png" /></p>
+</li>
+<li>
+<p>když jsem s úpravou spokojený, přepnu se zpět z režimu <code>Quick Mask</code></p>
+<p><img alt="toggle quick mask again" class="natural" src="/img/mask/sc8.png" /></p>
+</li>
+<li>
+<p>v pravém dolním rohu vyberu ikonu masky</p>
+<p><img alt="create mask" class="natural" src="/img/mask/sc9.png" /></p>
+</li>
+<li>
+<p>vyskočí dialog, zvolím možnost <code>Selection</code> a potvrdím <code>Add</code></p>
+<p><img alt="create mask" class="natural" src="/img/mask/sc10.png" /></p>
+</li>
+<li>
+<p>a dostanu izolovaný objekt</p>
+<p><img alt="final image" class="natural" src="/img/mask/sc11.png" /></p>
+</li>
+</ol>
+</section>
+<footer>
+    <header>
+    <ol>
+       <li><a href="../">coursebook</a></li>
+       <li>mga</li>
+    </ol>
+</header>
+</footer>
+</body>
+</html>
