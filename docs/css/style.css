@@ -145,9 +145,9 @@ span.menu,
 code {
     background-color: #DDD;
     padding: 0.1em 0.5em;
-    white-space: nowrap;
     border-radius: 0.2em;
     font-family: inherit;
+    
 }
 
 .quote {
@@ -271,28 +271,4 @@ span.mjx-chtml::-webkit-scrollbar {
     margin: 1em auto;
     display: block;
     background: #FFF;
-}
-
-.pinned {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 1em;
-    text-align: right;
-    background: #EEE;
-    padding: 0.5em 1em;
-    line-height: 1em;
-}
-
-.pinned span {
-    display: block;
-}
-
-.pinned .call {
-    font-weight: bold;
-}
-
-.pinned .call,
-.pinned .action {
-    font-size: 0.8em;
 }

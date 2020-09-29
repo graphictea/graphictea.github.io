@@ -41,4 +41,4 @@ Ukázka vektorizace obtahem, překryvem a automatické vektorizace.
 *   panel pro změnu průhlednosti podkladového obrázku `Object > Objects`
 *   Inkscape ukládá ve výchozím nastavení rovnou do svg formátu
 *   Ovládání nástroje pro vektorizaci v horním panelu (módy uzlů atp.)
-*   Automatická vektorizace Path > Trace Bitmap
+*   Automatická vektorizace `Path > Trace Bitmap`
