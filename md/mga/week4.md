@@ -19,7 +19,7 @@ Cílem vektorizace je převést rastrový obraz na vektorový výstup ala ilustr
 
 **Vektorizace obtahem** je tak trochu analogie klasického obkreslování přes pauzák, kdy se obtahují hlavní kontury objektu.
 
-**Vektorizace překryvem** je dost podobná, ale místo obrysů používám základní tvary, které lze spojovat dohromady.
+**Vektorizace překryvem** z výchozího tvaru se postupně přibližuju požadovanému tvaru a objekt postupně zpřesňuju
 
 **Automatická vektorizace** využívá vestavěných nástrojů pro automatickou vektorizaci, úkolem uživatele je vhodně zvolit parametry.
 
